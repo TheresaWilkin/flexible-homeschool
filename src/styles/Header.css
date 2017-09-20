@@ -1,0 +1,24 @@
+.app-header {
+  text-align: center;
+  padding-top: 30px;
+}
+
+.app-header-logo {
+  width: 1.33em;
+}
+
+.nav-link {
+  color: #333;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  cursor: pointer
+}
+
+.header-nav {
+  padding: .5em .5em .5em 0;
+  border: 1px solid #ccc;
+  border-width: 1px 0 1px 0;
+  margin-bottom: 1em;
+}
