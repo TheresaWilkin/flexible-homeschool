@@ -1,11 +1,14 @@
 .app-header {
   text-align: center;
   padding-top: 30px;
+  display: flex;
+  flex-direction: column
 }
 
-.app-header-logo {
-  width: 1.33em;
+.app-header-image {
+  width: 70px
 }
+
 
 .nav-link {
   color: #333;

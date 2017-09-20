@@ -18,10 +18,14 @@ class Header extends Component {
     return (
       <div>
         <header className="row app-header">
-          <h1>
-            <img src={logo} className="app-header-logo" alt="Pile of books by Maria Kislitsina from the Noun Project"/>
-            Flexible Homeschool
-          </h1>
+          <div className="app-header-image-container">
+            <img src={logo} className="app-header-image" alt="Pile of books by Maria Kislitsina from the Noun Project"/>
+          </div>
+          <div className="app-header-text">
+            <h1>
+              Flexible Homeschool
+            </h1>
+          </div>
           <h2>{school.name}</h2>
         </header>
         <nav className="row header-nav">
