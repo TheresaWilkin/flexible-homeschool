@@ -8,8 +8,8 @@
       "type": "image/png"
     },
     {
-      "src": "biglogo.png",
-      "sizes": "465x503",
+      "src": "splashscreen.png",
+      "sizes": "1334x750",
       "type": "image/png"
     }
   ],
