@@ -70,4 +70,6 @@ query {
 }
 `
 
+export const HeaderMock = Header;
+
 export default graphql(userQuery, { options: {fetchPolicy: 'network-only' }})(withRouter(Header))
