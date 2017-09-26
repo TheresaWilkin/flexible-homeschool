@@ -28,10 +28,8 @@ class Header extends Component {
           </div>
           <h2>{school.name}</h2>
         </header>
-        <nav className="row header-nav">
-          <Link to='/' className="nav-link one column">HOME</Link>
-          <Link to='/acknowledgements' className="nav-link one column">ACKNOWLEDGEMENTS</Link>
-          <div className="one column u-pull-right">
+        <nav className="header-nav">
+          <div className="u-pull-right">
             {userId ?
               <div className="nav-link" onClick={() => {
                 logout()
