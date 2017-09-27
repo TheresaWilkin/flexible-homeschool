@@ -1,28 +1,47 @@
 import React, { Component } from 'react'
-import Header from './Header'
-import Login from './Login'
-import Acknowledgements from './Acknowledgements'
-import Students from './Students';
+import '../styles/App.css';
 import { Switch, Route } from 'react-router-dom'
-import BurgerMenu from './BurgerMenu'
+
 
 class App extends Component {
   render() {
     return (
-      <div id="outer-container">
-        <BurgerMenu />
-        <div className="page-wrap container">
-        <Header />
-        <div>
-          <Switch>
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/acknowledgements' component={Acknowledgements} />
-            <Route exact path='/students' component={Students} />
-            <Route path='/' render={() => <h2>Coming soon</h2>} />
-          </Switch>
-        </div>
-      </div>
-      </div>
+      <div className="wrapper">
+<header>
+  <div className="imageWrapper">
+    <img src="https://image.freepik.com/free-icon/books-stack-of-three_318-45543.jpg" alt="" />
+  </div>
+  <h1>Flexible Homeschool</h1>
+</header>
+<nav>
+  <a href="">Home</a>
+  <a href="">Find Resources</a>
+  <a href="">Schedule Assignments</a>
+  <a href="">Track Progress</a>
+</nav>
+<main>
+  <section>
+      <h2 className="center">Welcome!</h2>
+      <p>This free website will allow you to:</p>
+      <ul>
+        <li>Browse resources and curriculum that have been rated and reviewed by homeschooling parents like you</li>
+        <li>Schedule assignments and curriculum for your children</li>
+        <li>Track and record your children's progress throughout the school year -- and easily adapt if you fall behind</li>
+      </ul>
+    <div className="buttons">
+      <button className="important">Start Planning</button>
+      <p>or</p>
+      <button>Find Resources</button>
+    </div>
+  </section>
+</main>
+<footer>
+  <p>Flexible Homeschool</p>
+  <a href="">About</a>
+  <a href="">Contact</a>
+  <a href="">Acknowledgements</a>
+</footer>
+  </div>
     )
   }
 }
