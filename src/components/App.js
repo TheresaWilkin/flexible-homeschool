@@ -25,7 +25,7 @@ class App extends Component {
   <Switch>
     <Route exact path='/' component={Home} />
     <Route exact path='/login' component={Login} />
-    <PrivateRoute exact path='/acknowledgements' component={Acknowledgements} authRoles={['TEACHER']} />
+    <Route exact path='/acknowledgements' component={Acknowledgements}/>
     <Route path='/' render={() => <h2>Coming soon</h2>} />
   </Switch>
 <footer>
