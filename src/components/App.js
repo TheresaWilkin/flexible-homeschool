@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import '../styles/App.css';
-import { Switch, Route } from 'react-router-dom'
-
+import '../styles/App.css'
+import { Switch, Route, Link } from 'react-router-dom'
+import PrivateRoute from './PrivateRoute'
+import Home from './Home'
+import Login from './Login'
+import Acknowledgements from './Acknowledgements'
 
 class App extends Component {
   render() {
@@ -19,27 +22,17 @@ class App extends Component {
   <a href="">Schedule Assignments</a>
   <a href="">Track Progress</a>
 </nav>
-<main>
-  <section>
-      <h2 className="center">Welcome!</h2>
-      <p>This free website will allow you to:</p>
-      <ul>
-        <li>Browse resources and curriculum that have been rated and reviewed by homeschooling parents like you</li>
-        <li>Schedule assignments and curriculum for your children</li>
-        <li>Track and record your children's progress throughout the school year -- and easily adapt if you fall behind</li>
-      </ul>
-    <div className="buttons">
-      <button className="important">Start Planning</button>
-      <p>or</p>
-      <button>Find Resources</button>
-    </div>
-  </section>
-</main>
+  <Switch>
+    <Route exact path='/' component={Home} />
+    <Route exact path='/login' component={Login} />
+    <PrivateRoute exact path='/acknowledgements' component={Acknowledgements} authRoles={['TEACHER']} />
+    <Route path='/' render={() => <h2>Coming soon</h2>} />
+  </Switch>
 <footer>
   <p>Flexible Homeschool</p>
   <a href="">About</a>
   <a href="">Contact</a>
-  <a href="">Acknowledgements</a>
+  <Link to="/acknowledgements">Acknowledgements</Link>
 </footer>
   </div>
     )

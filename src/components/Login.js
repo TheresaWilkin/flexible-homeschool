@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants'
 import { gql, graphql, compose } from 'react-apollo'
+import '../styles/Login.css'
 
 class Login extends Component {
 
@@ -8,11 +9,11 @@ class Login extends Component {
     login: true, // switch between Login and SignUp
     email: '',
     password: '',
-    name: ''
+    name: '',
+    error: ''
   }
 
   render() {
-
     return (
       <div>
         <h4>{this.state.login ? 'Login' : 'Sign Up'}</h4>
@@ -55,6 +56,9 @@ class Login extends Component {
             {this.state.login ? 'need to create an account?' : 'already have an account?'}
           </button>
         </div>
+        <div className="row">
+          <p>{this.state.error}</p>
+        </div>
       </div>
     )
   }
@@ -62,15 +66,21 @@ class Login extends Component {
   _confirm = async () => {
     const { name, email, password } = this.state
     if (this.state.login) {
-      const result = await this.props.signinUserMutation({
-        variables: {
-          email,
-          password
-        }
-      })
-      const id = result.data.signinUser.user.id
-      const token = result.data.signinUser.token
-      this._saveUserData(id, token)
+      try {
+        const result = await this.props.signinUserMutation({
+          variables: {
+            email,
+            password
+          }
+        })
+        const id = result.data.signinUser.user.id
+        const token = result.data.signinUser.token
+        this._saveUserData(id, token)
+        const { from } = this.props.location.state || { from: { pathname: '/' } }
+        this.props.history.push(from)
+      } catch (err) {
+        this.setState({ error: err.message })
+      }
     } else {
       const result = await this.props.createUserMutation({
         variables: {
@@ -82,8 +92,9 @@ class Login extends Component {
       const id = result.data.signinUser.user.id
       const token = result.data.signinUser.token
       this._saveUserData(id, token)
+      const { from } = this.props.location.state || { from: { pathname: '/' } }
+      this.props.history.push(from)
     }
-    this.props.history.push(`/`)
   }
 
   _saveUserData = (id, token) => {
