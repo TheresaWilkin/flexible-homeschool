@@ -10,17 +10,34 @@
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css" await>
     <title>Flexible Homeschool</title>
+    <style>
+      .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+      }
+
+      @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      </style>
   </head>
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
     <div id="root">
-      <div style="width:95%;max-width:940px;margin:auto;text-align:center">
-        <header>
-          <h1 style="font-size:50px;padding-top:50px">Flexible Homeschool</h1>
-        </header>
-      </div>
+      <div class="loader"></div>
     </div>
   </body>
 </html>
