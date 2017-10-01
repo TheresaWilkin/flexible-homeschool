@@ -11,11 +11,6 @@
       "src": "splashscreenbig.png",
       "sizes": "675x611",
       "type": "image/png"
-    },
-    {
-      "src": "books.jpg",
-      "sizes": "5184x3456",
-      "type": "image/jpg"
     }
   ],
   "start_url": "./index.html",
