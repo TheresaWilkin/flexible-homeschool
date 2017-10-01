@@ -11,9 +11,14 @@
       "src": "splashscreenbig.png",
       "sizes": "675x611",
       "type": "image/png"
+    },
+    {
+      "src": "books.jpg",
+      "sizes": "5184x3456",
+      "type": "image/jpg"
     }
   ],
-  "start_url": "/?utm_source=homescreen",
+  "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
