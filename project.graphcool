@@ -1,15 +1,19 @@
 # project: cj7s3b05x05uy0146vvmws6nk
-# version: 14
+# version: 96
 
 type User implements Node {
   id: ID! @isUnique
   createdAt: DateTime!
   updatedAt: DateTime!
-  email: String
-  password: String!
+  name: String
   school: School @relation(name: "UserInSchool")
-  username: String! @isUnique
-  auth0UserId: String @isUnique
+  subjects: [EnrolledSubject!]! @relation(name: "UserInEnrolledSubject")
+  email: String @isUnique
+  password: String
+  role: Role!
+  studentAssignments: [StudentAssignment!]! @relation(name: "StudentAssignmentOnUser")
+  studentSkills: [StudentSkill!]! @relation(name: "StudentSkillOnUser")
+  ratings: [Rating!]! @relation(name: "RatingOnUser")
 }
 
 type File implements Node {
@@ -27,4 +31,126 @@ type School implements Node {
   id: ID! @isUnique
   name: String! @isUnique
   users: [User!]! @relation(name: "UserInSchool")
+}
+
+type Subject implements Node {
+  id: ID! @isUnique
+  name: String! @isUnique
+  enrolledSubjects: [EnrolledSubject!]! @relation(name: "EnrolledSubjectOnSubject")
+  skills: [Skill!]! @relation(name: "SkillOnSubject")
+}
+
+type EnrolledSubject implements Node {
+  id: ID! @isUnique
+  startDate: DateTime
+  duration: Int
+  completed: Boolean
+  users: [User!]! @relation(name: "UserInEnrolledSubject")
+  subject: Subject @relation(name: "EnrolledSubjectOnSubject")
+}
+
+type Assignment implements Node {
+  description: String!
+  duration: Int
+  extraCredit: Boolean! @defaultValue(value: false)
+  id: ID! @isUnique
+  link: String
+  name: String!
+  pointValue: Int!
+  repeatInterval: Int
+  skills: [Skill!]! @relation(name: "AssignmentOnSkill")
+}
+
+type AssignmentInstance implements Node {
+  date: DateTime!
+  id: ID! @isUnique
+  ignore: Boolean! @defaultValue(value: false)
+  pointsEarned: Int! @defaultValue(value: 0)
+  studentAssignment: StudentAssignment @relation(name: "AssignmentInstanceOnStudentAssignment")
+  submitted: Boolean! @defaultValue(value: false)
+  attachments: [Attachment!]! @relation(name: "AttachmentOnAssignmentInstance")
+}
+
+type Attachment implements Node {
+  id: ID! @isUnique
+  imageUrl: String
+  submissionUrl: String
+  text: String
+  assignmentInstance: AssignmentInstance @relation(name: "AttachmentOnAssignmentInstance")
+  type: AttachmentType! @defaultValue(value: TEXT)
+}
+
+type Skill implements Node {
+  assignments: [Assignment!]! @relation(name: "AssignmentOnSkill")
+  id: ID! @isUnique
+  name: String! @isUnique
+  studentAssignments: [StudentAssignment!]! @relation(name: "StudentAssignmentOnSkill")
+  studentSkills: [StudentSkill!]! @relation(name: "StudentSkillOnSkill")
+  subjects: [Subject!]! @relation(name: "SkillOnSubject")
+}
+
+type StudentAssignment implements Node {
+  assignmentInstances: [AssignmentInstance!]! @relation(name: "AssignmentInstanceOnStudentAssignment")
+  description: String!
+  duration: Int
+  extraCredit: Boolean! @defaultValue(value: false)
+  id: ID! @isUnique
+  link: String
+  name: String!
+  pointValue: Int! @defaultValue(value: 0)
+  repeatInterval: Int
+  skills: [Skill!]! @relation(name: "StudentAssignmentOnSkill")
+  startDate: DateTime
+  user: User @relation(name: "StudentAssignmentOnUser")
+}
+
+type StudentSkill implements Node {
+  completed: Boolean
+  duration: Int
+  id: ID! @isUnique
+  skill: Skill @relation(name: "StudentSkillOnSkill")
+  startDate: DateTime
+  user: User @relation(name: "StudentSkillOnUser")
+}
+
+enum AttachmentType {
+  TEXT
+  IMAGE
+  LINK
+}
+
+enum Role {
+  TEACHER
+  STUDENT
+}
+
+type Rating implements Node {
+  id: ID! @isUnique
+  resource: Resource @relation(name: "RatingOnResource")
+  score: Int! @defaultValue(value: 0)
+  user: User @relation(name: "RatingOnUser")
+}
+
+type Resource implements Node {
+  description: String!
+  highestAge: Int! @defaultValue(value: 18)
+  id: ID! @isUnique
+  link: String
+  lowestAge: Int! @defaultValue(value: 0)
+  name: String!
+  ratings: [Rating!]! @relation(name: "RatingOnResource")
+  resourceTags: [ResourceTag!]! @relation(name: "ResourceTagOnResource")
+}
+
+type ResourceTag implements Node {
+  count: Int! @defaultValue(value: 0)
+  id: ID! @isUnique
+  resource: Resource @relation(name: "ResourceTagOnResource")
+  tag: Tag @relation(name: "ResourceTagOnTag")
+}
+
+type Tag implements Node {
+  id: ID! @isUnique
+  name: String!
+  resourceTags: [ResourceTag!]! @relation(name: "ResourceTagOnTag")
 }
