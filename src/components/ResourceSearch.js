@@ -3,9 +3,9 @@ import { gql, withApollo } from 'react-apollo'
 import ResourceCard from './ResourceCard'
 import SortByButton from './SortByButton'
 import '../styles/ResourceSearch.css'
+import { formatResource } from '../utils'
 
 class ResourceSearch extends Component {
-
   state = {
     resources: [],
     searchText: '',
@@ -68,41 +68,6 @@ const sortByDate = (a, b) => {
 const sortResources = (resources, sortedBy) => {
   return sortedBy === 'stars' ? resources.sort(sortByStars) : resources.sort(sortByDate);
 }
-
-const formatResource = (resource) => {
-  return {
-    ...resource,
-    subject: truncateText(resource.subject, 11),
-    description: truncateText(resource.description, 300),
-    ages: determineAges(resource.ageVotes),
-    stars: averageStars(resource.ratings, 0)
-  }
-}
-
-const truncateText = (text, length) => {
-  if (text.length > length) {
-    return `${text.substr(0, length - 3)}...`
-  } else {
-    return text
-  }
-}
-
-const sumAges = (sum, ageVote) => sum + ageVote.age
-
-const averageAge = (ageVotes, defaultAge) => ageVotes.length > 0 ? ageVotes.reduce(sumAges, 0)/ageVotes.length : defaultAge
-
-const determineAges = (ageVotes) => {
-  const minimumAges = ageVotes.filter(ageVote => ageVote.minimumAge)
-  const maximumAges = ageVotes.filter(ageVote => !ageVote.minimumAge)
-  return {
-    minimumAge: averageAge(minimumAges, 0),
-    maximumAge: averageAge(maximumAges, 18)
-  }
-}
-
-const sumStars = (sum, star) => sum + star.score
-
-const averageStars = (stars, defaultStars) => stars.length > 0 ? stars.reduce(sumStars, 0)/stars.length : defaultStars
 
 const ALL_RESOURCES_SEARCH_QUERY = gql`
   query AllResourcesSearchQuery($searchText: String!) {

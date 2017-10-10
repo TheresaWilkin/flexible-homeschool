@@ -8,7 +8,7 @@ class ResourceCard extends PureComponent {
     const { resource } = this.props;
     const { subject, description, ages, stars } = resource;
     return (
-      <Link className="card" to={`/resources/${resource.id}`}>
+      <Link className="card" to={`/resources/resource/${resource.id}`}>
         <span className="card-header" style={{backgroundImage:`url('${resource.imageUrl}')`}}>
           <span className="card-title">
             <h3>{resource.name} <ReactStars

@@ -4,6 +4,7 @@ import CustomLink from './CustomLink'
 import PrivateRoute from './PrivateRoute'
 import '../styles/Resources.css'
 import ResourceSearch from './ResourceSearch'
+import Resource from './Resource'
 
 class Resources extends Component {
   render() {
@@ -17,6 +18,7 @@ class Resources extends Component {
         </nav>
         <Switch>
           <Route path='/resources/search' component={ResourceSearch} />
+          <Route path='/resources/resource/:id' component={Resource} />
           <Route exact path='/resources' render={() => <h2>HOME</h2>} />
           <Route path='/resources' render={() => <h2>Coming soon</h2>} />
         </Switch>
