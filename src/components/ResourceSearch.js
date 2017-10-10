@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { gql, withApollo } from 'react-apollo'
 import ResourceCard from './ResourceCard'
+import SortByButton from './SortByButton'
 import '../styles/ResourceSearch.css'
 
 class ResourceSearch extends Component {
@@ -27,12 +28,12 @@ class ResourceSearch extends Component {
           <button
             onClick={() => this._executeSearch()}
           >
-            OK
+            Search
           </button>
         </div>
         <div className="search-divider">
-          <button onClick={() => this.updateSortBy('stars')}>Popular</button>
-          <button onClick={() => this.updateSortBy('date')}>Recent</button>
+          <SortByButton sortBy={this.updateSortBy.bind(this)} type="stars" currentSortBy={this.state.sortBy} />
+          <SortByButton sortBy={this.updateSortBy.bind(this)} type="date" currentSortBy={this.state.sortBy} />
         </div>
         <div className="cards">
           {this.state.resources.map((resource) => <ResourceCard key={resource.id} resource={resource} />)}
@@ -43,7 +44,6 @@ class ResourceSearch extends Component {
 
   updateSortBy(sortBy) {
     const resources = sortResources(this.state.resources, sortBy)
-    console.log(resources)
     this.setState({ resources, sortBy })
   }
 
