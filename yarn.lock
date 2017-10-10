@@ -5436,6 +5436,10 @@ react-scripts@1.0.13:
   optionalDependencies:
     fsevents "1.1.2"
 
+react-stars@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/react-stars/-/react-stars-2.2.4.tgz#971beaed529e8f0f30c78d5012f6fe19a6d34f89"
+
 react-transition-group@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-1.2.0.tgz#b51fc921b0c3835a7ef7c571c79fc82c73e9204f"

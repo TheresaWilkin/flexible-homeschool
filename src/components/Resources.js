@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import CustomLink from './CustomLink'
 import PrivateRoute from './PrivateRoute'
 import '../styles/Resources.css'
+import ResourceSearch from './ResourceSearch'
 
 class Resources extends Component {
   render() {
@@ -15,7 +16,9 @@ class Resources extends Component {
           <CustomLink to="/resources/favorites" label="View Favorite Resources" />
         </nav>
         <Switch>
-          <Route path='/' render={() => <h2>Coming soon</h2>} />
+          <Route path='/resources/search' component={ResourceSearch} />
+          <Route exact path='/resources' render={() => <h2>HOME</h2>} />
+          <Route path='/resources' render={() => <h2>Coming soon</h2>} />
         </Switch>
       </div>
     )

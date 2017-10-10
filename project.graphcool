@@ -1,5 +1,5 @@
 # project: cj7s3b05x05uy0146vvmws6nk
-# version: 96
+# version: 111
 
 type User implements Node {
   id: ID! @isUnique
@@ -14,6 +14,7 @@ type User implements Node {
   studentAssignments: [StudentAssignment!]! @relation(name: "StudentAssignmentOnUser")
   studentSkills: [StudentSkill!]! @relation(name: "StudentSkillOnUser")
   ratings: [Rating!]! @relation(name: "RatingOnUser")
+  timeVotes: [TimeVote!]! @relation(name: "TimeVoteOnUser")
 }
 
 type File implements Node {
@@ -59,6 +60,8 @@ type Assignment implements Node {
   pointValue: Int!
   repeatInterval: Int
   skills: [Skill!]! @relation(name: "AssignmentOnSkill")
+  ageVotes: [AgeVote!]! @relation(name: "AgeVoteOnAssignment")
+  timeVote: TimeVote @relation(name: "TimeVoteOnAssignment")
 }
 
 type AssignmentInstance implements Node {
@@ -124,6 +127,14 @@ enum Role {
   STUDENT
 }
 
+type AgeVote implements Node {
+  age: Int!
+  assignment: Assignment @relation(name: "AgeVoteOnAssignment")
+  id: ID! @isUnique
+  minimumAge: Boolean!
+  resource: Resource @relation(name: "AgeVoteOnResource")
+}
+
 type Rating implements Node {
   id: ID! @isUnique
   resource: Resource @relation(name: "RatingOnResource")
@@ -132,25 +143,38 @@ type Rating implements Node {
 }
 
 type Resource implements Node {
+  ageVotes: [AgeVote!]! @relation(name: "AgeVoteOnResource")
   description: String!
   highestAge: Int! @defaultValue(value: 18)
   id: ID! @isUnique
+  imageUrl: String! @defaultValue(value: "http://placeimg.com/400/200/nature")
   link: String
   lowestAge: Int! @defaultValue(value: 0)
   name: String!
   ratings: [Rating!]! @relation(name: "RatingOnResource")
-  resourceTags: [ResourceTag!]! @relation(name: "ResourceTagOnResource")
+  resourceTags: [TagVote!]! @relation(name: "ResourceTagOnResource")
+  subject: String! @defaultValue(value: "")
+  timeVotes: [TimeVote!]! @relation(name: "TimeVoteOnResource")
+  createdDate: DateTime!
 }
 
-type ResourceTag implements Node {
+type Tag implements Node {
+  id: ID! @isUnique
+  name: String!
+  resourceTags: [TagVote!]! @relation(name: "ResourceTagOnTag")
+}
+
+type TagVote implements Node {
   count: Int! @defaultValue(value: 0)
   id: ID! @isUnique
   resource: Resource @relation(name: "ResourceTagOnResource")
   tag: Tag @relation(name: "ResourceTagOnTag")
 }
 
-type Tag implements Node {
+type TimeVote implements Node {
+  assignment: Assignment @relation(name: "TimeVoteOnAssignment")
+  hours: Int!
   id: ID! @isUnique
-  name: String!
-  resourceTags: [ResourceTag!]! @relation(name: "ResourceTagOnTag")
+  resource: Resource @relation(name: "TimeVoteOnResource")
+  user: User @relation(name: "TimeVoteOnUser")
 }
