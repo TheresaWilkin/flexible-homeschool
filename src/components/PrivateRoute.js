@@ -5,7 +5,6 @@ import {
   withRouter,
 } from 'react-router-dom'
 import { gql, graphql } from 'react-apollo'
-import { GC_USER_ID } from '../constants'
 
 class PrivateRoute extends React.PureComponent {
   state = {
