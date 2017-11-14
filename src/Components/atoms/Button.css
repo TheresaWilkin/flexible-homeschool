@@ -1,0 +1,30 @@
+.button {
+    background-color: var(--main-color);
+    border: none;
+    color: white;
+    border-radius: 4px;
+    padding: 8px 16px;
+    text-decoration: none;
+    margin: 4px 4px 4px 0px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.button:focus {
+  outline: none;
+  border-color: #555;
+  box-shadow: 0px 0px 10px var(--main-color);
+}
+
+.button:active {
+  background-color: #000;
+}

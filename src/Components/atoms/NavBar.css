@@ -1,0 +1,36 @@
+/* Style the list */
+.navbar {
+    list-style: none;
+    color: #fff;
+}
+
+@media only screen and (max-width: 768px) {
+    .navbar {
+        min-width: 100%;
+        padding: 0;
+    }
+}
+
+/* Display list items side by side */
+.nav-item {
+    display: inline;
+    font-size: 18px;
+}
+
+/* Add a color to all links inside the list */
+.nav-item a {
+    color: #fff;
+    text-decoration: underline;
+    padding-right: 10px;
+}
+
+/* Add a color on mouse-over */
+.nav-item a:hover {
+    color: #bbb;
+}
+
+.navbar-current {
+  display: inline;
+  font-size: 18px;
+  padding-right: 10px;
+}

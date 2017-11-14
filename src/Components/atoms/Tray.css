@@ -1,0 +1,14 @@
+.tray {
+  background-color: #ddd;
+  border-radius: 5px;
+  padding: 0 10px;
+  margin: 10px 10px 10px 0;
+  max-width: 350px;
+}
+
+@media only screen and (max-width: 768px) {
+    .tray {
+        min-width: 100%;
+        margin: 10px 0;
+    }
+}

@@ -1,0 +1,23 @@
+.new-item-square {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ddd;
+  border-radius: 5px;
+  margin: 10px 10px 10px 0;
+}
+
+.new-item-plus {
+ font-size: 40px;
+ color: #fff;
+ font-weight: lighter;
+}
+
+.new-item-text {
+  font-size: 18px;
+  color: #fff;
+  padding: 0;
+  margin: 0;
+}

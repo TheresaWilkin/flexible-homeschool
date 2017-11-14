@@ -1,0 +1,30 @@
+.textinput-label {
+  text-align: left;
+}
+
+.textinput-required {
+    color: #8B0000;
+}
+
+.textinput {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.textinput:focus {
+    border: 1px solid #999;
+}
+
+.textinput-error {
+  color: #8B0000;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+}

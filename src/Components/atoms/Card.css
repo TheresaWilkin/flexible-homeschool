@@ -1,0 +1,47 @@
+.card {
+  background: #FFF;
+  display: inline-block;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 5px;
+  min-width: 200px;
+  -webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+@media only screen and (max-width: 768px) {
+    .card {
+        min-width: 100%;
+        margin: 10px 0;
+    }
+}
+
+.clickable:hover {
+  -webkit-box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.05), 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.05), 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 -2px 3px 0 rgba(0, 0, 0, 0.05), 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.clickable:active {
+  background: -moz-linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2));
+  background: -webkit-linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2));
+  background: linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2));
+  filter: unquote("progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3000000', endColorstr='#b3000000',GradientType=0 )");
+}
+
+.first-card {
+  margin-left: 0;
+}
+
+.square {
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card i {
+  text-align: right;
+}
