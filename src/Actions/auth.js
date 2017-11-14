@@ -1,8 +1,8 @@
 /* global localStorage */
 
 import axios from 'axios';
-// MOCK
-import MockAdapter from 'axios-mock-adapter';
+// // MOCK
+// import MockAdapter from 'axios-mock-adapter';
 
 import {
   AUTH_USER,
@@ -10,18 +10,18 @@ import {
   AUTH_ERROR,
 } from './types';
 
-const ROOT_URL = 'http://localhost:3090';
+const ROOT_URL = 'https://ancient-oasis-46992.herokuapp.com';
 
-// MOCKS
-const mock = new MockAdapter(axios);
-mock.onPost(`${ROOT_URL}/signin`).reply(
-  200,
-  { token: 'abc', user: { roles: { user: true } } },
-);
-mock.onPost(`${ROOT_URL}/signup`).reply(
-  200,
-  { token: 'abc', user: { roles: { user: true } } },
-);
+// // MOCKS
+// const mock = new MockAdapter(axios);
+// mock.onPost(`${ROOT_URL}/signin`).reply(
+//   200,
+//   { token: 'abc', user: { roles: { user: true } } },
+// );
+// mock.onPost(`${ROOT_URL}/signup`).reply(
+//   200,
+//   { token: 'abc', user: { roles: { user: true } } },
+// );
 
 export function authError(error) {
   return {
