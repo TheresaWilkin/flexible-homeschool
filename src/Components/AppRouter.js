@@ -12,13 +12,14 @@ import PrivateRoute from './Authentication/PrivateRoute';
 import Signin from './Authentication/Signin';
 import Signout from './Authentication/Signout';
 import Signup from './Authentication/Signup';
+import SignupStudent from './Authentication/SignupStudent';
 
 import Authorization from './Authentication/Authorization';
 
 import requireAuthorization from './Authentication/requireAuthorization';
 import requireAuthentication from './Authentication/requireAuthentication';
 
-const User = Authorization(['teacher', 'student']);
+const Teacher = Authorization(['teacher']);
 
 // Homepage with sample button requiring authentication
 const Button = () => <button>Secret Button</button>;
@@ -50,8 +51,7 @@ export default () => (
         <Route exact path="/" component={Home} />
         {/* this is a route requiring authentication */}
         <PrivateRoute path="/auth" component={Private} />
-        {/* this is a route requiring authentication and authorization */}
-        <PrivateRoute path="/role" component={User(Private)} />
+        <PrivateRoute exact path="/students/new" component={Teacher(SignupStudent)} />
         <Route path="/signin" component={Signin} />
         <Route path="/signout" component={Signout} />
         <Route path="/signup" component={Signup} />

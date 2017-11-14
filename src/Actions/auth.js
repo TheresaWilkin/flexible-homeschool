@@ -24,7 +24,7 @@ export function signinUser({ username, password }) {
       .then((response) => {
         dispatch({ type: AUTH_USER, payload: response.data.user });
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('userRole', JSON.stringify(response.data.user.role));
+        localStorage.setItem('user', JSON.stringify(response.data.user));
       })
       .catch((error) => {
         console.log('err', error)
@@ -35,18 +35,22 @@ export function signinUser({ username, password }) {
 
 export function signoutUser() {
   localStorage.removeItem('token');
-  localStorage.removeItem('userRole');
+  localStorage.removeItem('user');
 
   return { type: UNAUTH_USER };
 }
 
-export function signupUser({ username, email = '', password, role = 'teacher' }) {
+export function signupUser({ username, email = '', password, role = 'teacher', school, history }) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signup`, { username, password, email, role })
+    axios.post(`${ROOT_URL}/signup`, { username, password, email, role, school })
       .then((response) => {
-        dispatch({ type: AUTH_USER, payload: response.data.user });
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('userRole', JSON.stringify(response.data.user.role));
+        if (response.data.user.role === 'teacher') {
+          dispatch({ type: AUTH_USER, payload: response.data.user });
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem('user', JSON.stringify(response.data.user));
+        } else {
+          history.push('/students');
+        }
       })
       .catch((error) => {
         try {
