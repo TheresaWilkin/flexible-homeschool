@@ -24,31 +24,38 @@ export function signinUser({ username, password }) {
       .then((response) => {
         dispatch({ type: AUTH_USER, payload: response.data.user });
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('userRoles', JSON.stringify(response.data.user.roles));
+        localStorage.setItem('userRole', JSON.stringify(response.data.user.role));
       })
-      .catch(() => {
-        dispatch(authError('Bad Sign-in Info'));
+      .catch((error) => {
+        console.log('err', error)
+        dispatch(authError('Please check your username and password.'));
       });
   };
 }
 
 export function signoutUser() {
   localStorage.removeItem('token');
-  localStorage.removeItem('userRoles');
+  localStorage.removeItem('userRole');
 
   return { type: UNAUTH_USER };
 }
 
-export function signupUser({ username, password }) {
+export function signupUser({ username, email = '', password, role = 'teacher' }) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signup`, { username, password })
+    axios.post(`${ROOT_URL}/signup`, { username, password, email, role })
       .then((response) => {
         dispatch({ type: AUTH_USER, payload: response.data.user });
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('userRoles', JSON.stringify(response.data.user.roles));
+        localStorage.setItem('userRole', JSON.stringify(response.data.user.role));
       })
-      .catch(({ response }) => {
-        dispatch(authError(response.data.error));
+      .catch((error) => {
+        try {
+          dispatch(authError(error.response.data.error));
+        }
+        catch (e) {
+          console.log('catch error:', e, 'error was:', error);
+          dispatch(authError('Error signing up.'));
+        }
       });
   };
 }

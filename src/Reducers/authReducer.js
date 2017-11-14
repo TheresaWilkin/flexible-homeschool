@@ -18,7 +18,7 @@ export default function (state = {}, action) {
       return {
         ...state,
         authenticated: false,
-        user: { roles: {} },
+        user: { role: '' },
         error: false,
         errorMessage: '',
       };

@@ -24,33 +24,28 @@ const defaultProps = {
   authenticated: false,
   errorMessage: '',
   error: false,
-  location: { state: { from: { pathname: '/' } } },
 };
 
 const propTypes = {
-  signinUser: PropTypes.func.isRequired,
+  signupUser: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   authenticated: PropTypes.bool,
-  location: PropTypes.shape({ state: PropTypes.object }),
   errorMessage: PropTypes.string,
   error: PropTypes.bool,
 };
 
 
-class Signin extends React.Component {
+class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
-  handleFormSubmit({ username, password }) {
-    if (!!username && !!password) {
-      this.props.signinUser({ username, password });
-    }
+  handleFormSubmit(formProps) {
+    this.props.signupUser(formProps);
   }
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } };
     const {
       authenticated,
       error,
@@ -60,7 +55,7 @@ class Signin extends React.Component {
 
     if (authenticated) {
       return (
-        <Redirect to={from} />
+        <Redirect to="/" />
       );
     }
 
@@ -76,25 +71,59 @@ class Signin extends React.Component {
         />
         <br />
         <Field
+          name="email"
+          type="email"
+          component={FormInput}
+          label="Email"
+        />
+        <br />
+        <Field
           name="password"
           component={FormInput}
           type="password"
           label="Password"
         />
         <br />
+        <Field
+          name="passwordConfirm"
+          component={FormInput}
+          type="password"
+          label="Confirm Password"
+        />
+        <br />
         <ErrorMessage error={error} errorMessage={errorMessage} />
-        <Button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Sign in</Button>
+        <Button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Sign up</Button>
       </form>
-      <i style={{ width: '100%', display: 'inline-block' }}>or <Link to="/signup">sign up</Link></i>
+      <i style={{ width: '100%', display: 'inline-block' }}>or <Link to="/signin">sign in</Link></i>
     </Card>
   </Container>
     );
   }
 }
 
-Signin.defaultProps = defaultProps;
+function validate(formProps) {
+  const errors = {};
 
-Signin.propTypes = propTypes;
+  ['username', 'email', 'password', 'passwordConfirm'].forEach(field => {
+    if (!formProps[field]) {
+      errors[field] = 'Required';
+    }
+  });
+
+  if (formProps.email && !formProps.email.includes('@')) {
+    errors.email = 'Please enter a valid email';
+  }
+
+  if (formProps.password !== formProps.passwordConfirm) {
+    errors.passwordConfirm = 'Passwords must match';
+  }
+
+  return errors;
+}
+
+Signup.defaultProps = defaultProps;
+
+Signup.propTypes = propTypes;
 
 const mapStateToProps = state => ({
   authenticated: getAuthenticated(state),
@@ -102,9 +131,10 @@ const mapStateToProps = state => ({
   error: getAuthError(state),
 });
 
-const connectedComponent = connect(mapStateToProps, actions)(Signin);
+const connectedComponent = connect(mapStateToProps, actions)(Signup);
 
 export default reduxForm({
-  form: 'signin',
-  fields: ['username', 'password '],
+  form: 'signup',
+  fields: ['username', 'email', 'password', 'passwordConfirm'],
+  validate
 })(connectedComponent);

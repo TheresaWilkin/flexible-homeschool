@@ -11,12 +11,14 @@ import Header from './Header';
 import PrivateRoute from './Authentication/PrivateRoute';
 import Signin from './Authentication/Signin';
 import Signout from './Authentication/Signout';
+import Signup from './Authentication/Signup';
+
 import Authorization from './Authentication/Authorization';
 
 import requireAuthorization from './Authentication/requireAuthorization';
 import requireAuthentication from './Authentication/requireAuthentication';
 
-const User = Authorization(['user', 'manager', 'admin']);
+const User = Authorization(['teacher', 'student']);
 
 // Homepage with sample button requiring authentication
 const Button = () => <button>Secret Button</button>;
@@ -31,7 +33,7 @@ const Home = () => (
 const Filler = () => <img src="https://http.cat/404" alt="404" />;
 
 // Component with button requiring authorization
-const UserItem = requireAuthorization(['user']);
+const UserItem = requireAuthorization(['teacher']);
 const UsersOnlyButton = UserItem(Button);
 const Private = () => (
   <div>
@@ -52,6 +54,7 @@ export default () => (
         <PrivateRoute path="/role" component={User(Private)} />
         <Route path="/signin" component={Signin} />
         <Route path="/signout" component={Signout} />
+        <Route path="/signup" component={Signup} />
         <Route path="/" component={Filler} />
       </Switch>
     </div>
