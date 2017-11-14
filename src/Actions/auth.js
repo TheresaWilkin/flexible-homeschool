@@ -18,9 +18,9 @@ export function authError(error) {
 }
 
 
-export function signinUser({ email, password }) {
+export function signinUser({ username, password }) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signin`, { email, password })
+    axios.post(`${ROOT_URL}/signin`, { username, password })
       .then((response) => {
         dispatch({ type: AUTH_USER, payload: response.data.user });
         localStorage.setItem('token', response.data.token);
@@ -39,9 +39,9 @@ export function signoutUser() {
   return { type: UNAUTH_USER };
 }
 
-export function signupUser({ email, password }) {
+export function signupUser({ username, password }) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signup`, { email, password })
+    axios.post(`${ROOT_URL}/signup`, { username, password })
       .then((response) => {
         dispatch({ type: AUTH_USER, payload: response.data.user });
         localStorage.setItem('token', response.data.token);

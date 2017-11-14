@@ -43,9 +43,9 @@ class Signin extends React.Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
-  handleFormSubmit({ email, password }) {
-    if (!!email && !!password) {
-      this.props.signinUser({ email, password });
+  handleFormSubmit({ username, password }) {
+    if (!!username && !!password) {
+      this.props.signinUser({ username, password });
     }
   }
 
@@ -69,10 +69,10 @@ class Signin extends React.Component {
       <Card>
       <form onSubmit={handleSubmit(this.handleFormSubmit)}>
         <Field
-          name="email"
-          type="email"
+          name="username"
+          type="text"
           component={FormInput}
-          label="Email"
+          label="username"
         />
         <br />
         <Field
@@ -105,5 +105,5 @@ const connectedComponent = connect(mapStateToProps, actions)(Signin);
 
 export default reduxForm({
   form: 'signin',
-  fields: ['email', 'password '],
+  fields: ['username', 'password '],
 })(connectedComponent);
