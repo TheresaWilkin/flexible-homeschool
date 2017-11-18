@@ -40,7 +40,7 @@ export function signoutUser() {
   return { type: UNAUTH_USER };
 }
 
-export function signupUser({ username, email = '', password, role = 'teacher', school, history }) {
+export function signupUser({ username, email = '', password, role = 'teacher', school, color, history }) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/signup`, { username, password, email, role, school })
       .then((response) => {

@@ -3,7 +3,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
-import { reducer as form } from 'redux-form';
+import form from './formReducer';
 
 import { AUTH_USER } from '../Actions/types';
 import auth from './authReducer';
@@ -12,7 +12,7 @@ import students from './studentReducer';
 export const rootReducer = combineReducers({
   students,
   auth,
-  form,
+  form
 });
 
 const createStoreWithMiddleware = applyMiddleware(createLogger(), ReduxThunk)(createStore);

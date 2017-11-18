@@ -32,7 +32,8 @@ export const FormInput = ({
 }) => (
   <label htmlFor={label} className="textinput-label">{label}
     <input {...input} id={label} placeholder={label} type={type} className="textinput" />
-    {touched && ((error && <span className="textinput-error">{error}</span>) || (warning && <span>{warning}</span>))}
+    <br />
+    {touched && (error && <span className="textinput-error">{error}</span>)}
   </label>
 );
 

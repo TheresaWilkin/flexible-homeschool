@@ -19,6 +19,8 @@ import Authorization from './Authentication/Authorization';
 import requireAuthorization from './Authentication/requireAuthorization';
 import requireAuthentication from './Authentication/requireAuthentication';
 
+import StudentsContainer from './Students/StudentsContainer';
+
 const Teacher = Authorization(['teacher']);
 
 // Homepage with sample button requiring authentication
@@ -55,6 +57,7 @@ export default () => (
         <Route path="/signin" component={Signin} />
         <Route path="/signout" component={Signout} />
         <Route path="/signup" component={Signup} />
+        <PrivateRoute path="/students" component={StudentsContainer} />
         <Route path="/" component={Filler} />
       </Switch>
     </div>

@@ -9,8 +9,6 @@ const Option = ({ id, name }) => (
 
 export default ({ value, handleChange, options, style }) => (
   <select className="select" value={value} onChange={handleChange} style={style}>
-    <optgroup label="Curriculum Names">
     {options.map(option => <Option {...option} key={option.id} />)}
-  </optgroup>
   </select>
 );

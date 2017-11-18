@@ -16,9 +16,12 @@ import {
   ErrorMessage,
 } from '../Common';
 
+import colors from '../Students/colors';
+
 import Button from '../atoms/Button';
 import Card from '../atoms/Card';
-import Container from '../atoms/Container';
+import CardHeader from '../atoms/CardHeader';
+import Select from '../atoms/Select';
 
 const defaultProps = {
   authenticated: false,
@@ -27,7 +30,7 @@ const defaultProps = {
 };
 
 const propTypes = {
-  signupUser: PropTypes.func.isRequired,
+  signupStudent: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   school: PropTypes.string.isRequired,
   errorMessage: PropTypes.string,
@@ -38,12 +41,15 @@ const propTypes = {
 class SignupStudent extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      color: 'blue'
+    }
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   handleFormSubmit(formProps) {
     const { school, history } = this.props;
-    this.props.signupUser({ ...formProps, school, role: 'student', history });
+    this.props.signupStudent({ ...formProps, school, color: this.state.color });
   }
 
   render() {
@@ -54,8 +60,8 @@ class SignupStudent extends React.Component {
     } = this.props;
 
     return (
-      <Container style={{ justifyContent: 'center', paddingTop: '40px' }}>
       <Card>
+        <CardHeader>New Student</CardHeader>
       <form onSubmit={handleSubmit(this.handleFormSubmit)}>
         <Field
           name="username"
@@ -78,11 +84,20 @@ class SignupStudent extends React.Component {
           label="Confirm Student Password"
         />
         <br />
+        <label htmlFor="color">Favorite Color
+          <br />
+          <Select
+            id="color"
+            style={{ width: '100%', backgroundColor: colors[this.state.color].color, color: '#000' }}
+            value={this.state.color}
+            handleChange={(e) => this.setState({ color: e.target.value })}
+            options={Object.keys(colors).map(name => ({ id: name, name }))}
+          />
+        </label>
         <ErrorMessage error={error} errorMessage={errorMessage} />
         <Button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Create Student Account</Button>
       </form>
     </Card>
-  </Container>
     );
   }
 }
@@ -120,7 +135,7 @@ const mapStateToProps = state => ({
 const connectedComponent = withRouter(connect(mapStateToProps, actions)(SignupStudent));
 
 export default reduxForm({
-  form: 'signup',
+  form: 'signupStudent',
   fields: ['username', 'password', 'passwordConfirm'],
   validate
 })(connectedComponent);
