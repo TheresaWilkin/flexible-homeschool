@@ -19,24 +19,26 @@ import requireAuthorization from './Authentication/requireAuthorization';
 import requireAuthentication from './Authentication/requireAuthentication';
 
 import StudentsList from './Students/StudentsContainer';
+import Google from './Authentication/GoogleAuth';
 
 const Teacher = Authorization(['teacher']);
 
-// Homepage with sample button requiring authentication
-const Button = () => <button>Secret Button</button>;
-const PrivateButton = requireAuthentication(Button);
 const Home = () => (
   <Container>
     <p>This is the homepage</p>
-    <PrivateButton />
+    <Google />
   </Container>
 );
 
 const NotFound = () => <img src="https://http.cat/404" alt="404" />;
 
+// Homepage with sample button requiring authentication
+// const Button = () => <button>Secret Button</button>;
+// const PrivateButton = requireAuthentication(Button);
+
 // button requiring authorization
-const UserItem = requireAuthorization(['teacher']);
-const UsersOnlyButton = UserItem(Button);
+// const UserItem = requireAuthorization(['teacher']);
+// const UsersOnlyButton = UserItem(Button);
 
 export default () => (
   <Router>
@@ -48,7 +50,7 @@ export default () => (
         <Route path="/signout" component={Signout} />
         <Route path="/signup" component={Signup} />
         <PrivateRoute path="/students" component={Teacher(StudentsList)} />
-        <Route path="/googleb141fdfbb9ab7aef.html" component={() => 'google-site-verification: googleb141fdfbb9ab7aef.html'} />
+        <Route path="/googleb141fdfbb9ab7aef.html" render={() => "google-site-verification: googleb141fdfbb9ab7aef.html"} />
         <Route path="/" component={NotFound} />
       </Switch>
     </div>
