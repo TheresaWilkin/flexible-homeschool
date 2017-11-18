@@ -48,6 +48,7 @@ export default () => (
         <Route path="/signout" component={Signout} />
         <Route path="/signup" component={Signup} />
         <PrivateRoute path="/students" component={Teacher(StudentsList)} />
+        <Route path="/googleb141fdfbb9ab7aef.html" component={() => 'google-site-verification: googleb141fdfbb9ab7aef.html'} />
         <Route path="/" component={NotFound} />
       </Switch>
     </div>
