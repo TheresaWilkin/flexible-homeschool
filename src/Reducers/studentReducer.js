@@ -6,7 +6,9 @@ import {
 
 const defaultState = {
   byId: {},
-  all: []
+  all: [],
+  error: false,
+  errorMessage: ''
 }
 
 export default function (state = defaultState, action) {
@@ -14,7 +16,9 @@ export default function (state = defaultState, action) {
     case FETCH_STUDENTS:
       return {
         ...state,
-        ...action.payload
+        ...action.payload,
+        error: false,
+        errorMessage: ''
       };
     case NEW_STUDENT: {
       return {
@@ -23,9 +27,17 @@ export default function (state = defaultState, action) {
           ...state.byId,
           [action.payload._id]: action.payload
         },
-        all: [...state.all, action.payload._id]
+        all: [...state.all, action.payload._id],
+        error: false,
+        errorMessage: ''
       }
     }
+    case STUDENTS_ERROR:
+      return {
+        ...state,
+        error: true,
+        errorMessage: action.payload
+      }
     default:
       return state;
   }

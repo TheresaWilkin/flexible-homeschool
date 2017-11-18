@@ -7,9 +7,9 @@ import PropTypes from 'prop-types';
 import * as actions from '../../Actions';
 import {
   getUserSchool,
-  getAuthErrorMessage,
-  getAuthError,
-} from '../../Selectors/auth';
+  getStudentError,
+  getStudentErrorMessage,
+} from '../../Selectors';
 
 import {
   FormInput,
@@ -127,8 +127,8 @@ SignupStudent.defaultProps = defaultProps;
 SignupStudent.propTypes = propTypes;
 
 const mapStateToProps = state => ({
-  errorMessage: getAuthErrorMessage(state),
-  error: getAuthError(state),
+  errorMessage: getStudentErrorMessage(state),
+  error: getStudentError(state),
   school: getUserSchool(state),
 });
 

@@ -7,6 +7,7 @@ import {
 import { ROOT_URL } from './constants';
 
 export function studentsError(error) {
+  console.log(error)
   try {
     return {
       type: STUDENTS_ERROR,
@@ -14,7 +15,7 @@ export function studentsError(error) {
     };
   }
   catch (e) {
-    console.log('catch error:', e, 'error was:', error);
+    console.log('catch error:', e, '\n error was:', error, "\n");
     return {
       type: STUDENTS_ERROR,
       payload: 'Error',
@@ -26,7 +27,7 @@ export function signupStudent({ username, password, school, color = 'blue' }) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/students/signup`, { username, password, role: 'student', school, color })
     .then((response) => {
-          dispatch({ type: NEW_STUDENT, payload: response.data.user });
+      dispatch({ type: NEW_STUDENT, payload: response.data.user });
     })
     .catch(error => dispatch(studentsError(error)));
   };
@@ -38,6 +39,7 @@ export function fetchStudents(schoolId) {
       headers: { authorization: localStorage.getItem('token') }
     })
     .then(response => {
+      console.log(response)
       dispatch({ type: FETCH_STUDENTS, payload: response.data.users });
     })
     .catch(error => dispatch(studentsError(error)));
