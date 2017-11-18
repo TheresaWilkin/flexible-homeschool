@@ -48,8 +48,8 @@ class SignupStudent extends React.Component {
   }
 
   handleFormSubmit(formProps) {
-    const { school, history } = this.props;
-    this.props.signupStudent({ ...formProps, school, color: this.state.color });
+    const { school, signupStudent } = this.props;
+    signupStudent({ ...formProps, school, color: this.state.color });
   }
 
   render() {

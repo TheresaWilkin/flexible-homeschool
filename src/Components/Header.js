@@ -22,6 +22,7 @@ class Header extends Component {
     if (this.props.authenticated) {
       return [
         {url: '/', name: 'Home'},
+        {url: '/students', name: 'Students'},
         {url: '/signout', name: 'Sign Out'}
       ];
     }

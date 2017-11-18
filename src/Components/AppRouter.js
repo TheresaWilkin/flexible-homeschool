@@ -12,14 +12,13 @@ import PrivateRoute from './Authentication/PrivateRoute';
 import Signin from './Authentication/Signin';
 import Signout from './Authentication/Signout';
 import Signup from './Authentication/Signup';
-import SignupStudent from './Authentication/SignupStudent';
 
 import Authorization from './Authentication/Authorization';
 
 import requireAuthorization from './Authentication/requireAuthorization';
 import requireAuthentication from './Authentication/requireAuthentication';
 
-import StudentsContainer from './Students/StudentsContainer';
+import StudentsList from './Students/StudentsContainer';
 
 const Teacher = Authorization(['teacher']);
 
@@ -33,17 +32,11 @@ const Home = () => (
   </Container>
 );
 
-const Filler = () => <img src="https://http.cat/404" alt="404" />;
+const NotFound = () => <img src="https://http.cat/404" alt="404" />;
 
-// Component with button requiring authorization
+// button requiring authorization
 const UserItem = requireAuthorization(['teacher']);
 const UsersOnlyButton = UserItem(Button);
-const Private = () => (
-  <div>
-    <p>Now accessing private route!</p>
-    <UsersOnlyButton />
-  </div>
-);
 
 export default () => (
   <Router>
@@ -51,14 +44,11 @@ export default () => (
       <Header />
       <Switch>
         <Route exact path="/" component={Home} />
-        {/* this is a route requiring authentication */}
-        <PrivateRoute path="/auth" component={Private} />
-        <PrivateRoute exact path="/students/new" component={Teacher(SignupStudent)} />
         <Route path="/signin" component={Signin} />
         <Route path="/signout" component={Signout} />
         <Route path="/signup" component={Signup} />
-        <PrivateRoute path="/students" component={StudentsContainer} />
-        <Route path="/" component={Filler} />
+        <PrivateRoute path="/students" component={Teacher(StudentsList)} />
+        <Route path="/" component={NotFound} />
       </Switch>
     </div>
   </Router>
