@@ -1,5 +1,6 @@
 import hello from 'hellojs';
 import React from 'react';
+import { authenticateGoogle } from '../../Actions';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -19,28 +20,7 @@ hello.on('auth.login', function (auth) {
     socialToken = auth.authResponse.access_token;
 
     // Auth with our own server using the social token
-    authenticate(auth.network, socialToken).then(function (token) {
-        serverToken = token;
-    });
+    authenticateGoogle(auth.network, socialToken);
 });
-
-function authenticate(network, socialToken) {
-    return new Promise(function (resolve, reject) {
-        request
-            .post('/api/auth')
-            .send({
-                network: network,
-                socialToken: socialToken
-            })
-            .set('Accept', 'application/json')
-            .end(function(err, res){
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(res);
-                }
-            });
-    });
-}
 
 export default () => <button onClick={() => hello('google').login()}>Google</button>;
