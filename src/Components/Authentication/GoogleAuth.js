@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+console.log(process.env)
 hello.init({
     google: GOOGLE_CLIENT_ID
 }, {
