@@ -11,14 +11,36 @@ hello.init({
     redirect_uri: '/'
 });
 
-hello.on('auth.login', function(auth) {
+var socialToken;
+var serverToken;
 
-	// Call user information, for the given network
-	hello('google').api('me').then(function(r) {
-    console.log(r)
-	}, function(e) {
-    console.log(e);
-  });
+hello.on('auth.login', function (auth) {
+    // Save the social token
+    socialToken = auth.authResponse.access_token;
+
+    // Auth with our own server using the social token
+    authenticate(auth.network, socialToken).then(function (token) {
+        serverToken = token;
+    });
 });
+
+function authenticate(network, socialToken) {
+    return new Promise(function (resolve, reject) {
+        request
+            .post('/api/auth')
+            .send({
+                network: network,
+                socialToken: socialToken
+            })
+            .set('Accept', 'application/json')
+            .end(function(err, res){
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(res);
+                }
+            });
+    });
+}
 
 export default () => <button onClick={() => hello('google').login()}>Google</button>;
