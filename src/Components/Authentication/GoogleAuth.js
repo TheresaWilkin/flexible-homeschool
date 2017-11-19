@@ -14,17 +14,11 @@ hello.init({
 hello.on('auth.login', function(auth) {
 
 	// Call user information, for the given network
-	hello(auth.network).api('calendar').then(function(r) {
-		// Inject it into the container
+	hello('google').api('me').then(function(r) {
     console.log(r)
-	// 	var label = document.getElementById('profile_' + auth.network);
-	// 	if (!label) {
-	// 		label = document.createElement('div');
-	// 		label.id = 'profile_' + auth.network;
-	// 		document.getElementById('profile').appendChild(label);
-	// 	}
-	// 	label.innerHTML = '<img src="' + r.thumbnail + '" /> Hey ' + r.name;
-	});
+	}, function(e) {
+    console.log(e);
+  });
 });
 
 export default () => <button onClick={() => hello('google').login()}>Google</button>;
