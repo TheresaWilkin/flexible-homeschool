@@ -2,7 +2,7 @@ import hello from 'hellojs';
 import React from 'react';
 import dotenv from 'dotenv';
 dotenv.config();
-
+console.log(1)
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 console.log(process.env)
 hello.init({
