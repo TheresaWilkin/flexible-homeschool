@@ -9,8 +9,7 @@ const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 hello.init({
     google: GOOGLE_CLIENT_ID
 }, {
-    redirect_uri: '/',
-    scope: 'basic, email'
+    redirect_uri: '/'
 });
 
 var socialToken;
@@ -24,4 +23,4 @@ hello.on('auth.login', function (auth) {
     authenticateGoogle('google', socialToken);
 });
 
-export default () => <button onClick={() => hello('google').login()}>Google</button>;
+export default () => <button onClick={() => hello('google').login({ scope: 'email' })}>Google</button>;
