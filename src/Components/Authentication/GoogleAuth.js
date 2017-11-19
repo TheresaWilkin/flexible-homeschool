@@ -9,7 +9,8 @@ const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 hello.init({
     google: GOOGLE_CLIENT_ID
 }, {
-    redirect_uri: '/'
+    redirect_uri: '/',
+    scope: 'basic, email'
 });
 
 var socialToken;
