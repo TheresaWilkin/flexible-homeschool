@@ -20,7 +20,7 @@ hello.on('auth.login', function (auth) {
     socialToken = auth.authResponse.access_token;
 
     // Auth with our own server using the social token
-    authenticateGoogle(auth.network, socialToken);
+    authenticateGoogle('google', socialToken);
 });
 
 export default () => <button onClick={() => hello('google').login()}>Google</button>;
