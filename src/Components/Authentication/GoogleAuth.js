@@ -25,7 +25,7 @@ hello.on('auth.login', function (auth) {
 
 var google = hello('google');
 google.login({force: false}).then(function() {
-	google.api('me').then(response => {
+	google.api('https://www.googleapis.com/auth/calendar').then(response => {
     console.log(response);
   });
 });
