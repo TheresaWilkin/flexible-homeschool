@@ -66,11 +66,9 @@ export function signupUser({ username, email = '', password, role = 'teacher', s
 
 export function authenticateGoogle(network, socialToken) {
   return axios.post(`${ROOT_URL}/api/auth`, {
-    body: {
       network: network,
       socialToken: socialToken
-    }
-  })
+    })
   .then((response) => {
     console.log(response)
   })
