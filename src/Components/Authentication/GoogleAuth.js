@@ -23,4 +23,11 @@ hello.on('auth.login', function (auth) {
     authenticateGoogle('google', socialToken);
 });
 
-export default () => <button onClick={() => hello('google').login({ scope: 'email, https://www.googleapis.com/auth/calendar' })}>Google</button>;
+var google = hello('google');
+google.login({force: false}).then(function() {
+	google.api('me').then(response => {
+    console.log(response);
+  });
+});
+
+export default () => <button onClick={() => google.login({ scope: 'email, https://www.googleapis.com/auth/calendar' })}>Google</button>;
